@@ -1,17 +1,19 @@
 import React from 'react'
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
+import styled from 'styled-components'
 
+const Button = styled.TouchableOpacity`
+  padding: 4px 8px;
+  margin: 3px;
+  border-radius: 5px;
+`
+const ButtonText = styled.Text`
+  font-size: 12px;
+`
 export default function TextButton ({ children, onPress, style = {} }) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text style={[styles.reset, style]}>{children}</Text>
-    </TouchableOpacity>
+    <Button style={style} onPress={onPress}>
+      <ButtonText style={{color: '#fff'}}>{children}</ButtonText>
+    </Button>
   )
 }
-
-const styles = StyleSheet.create({
-  reset: {
-    textAlign: 'center',
-    color: 'red',
-  }
-})
