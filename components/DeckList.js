@@ -28,7 +28,7 @@ class DeckList extends Component {
 
     viewDeck = (id) => {
       this.props.navigation.navigate(
-               'Deck',
+               'DeckDetails',
                {deckId: id}
              )
     }
@@ -37,7 +37,8 @@ class DeckList extends Component {
     renderDeckList = (decks) => {
       const deckList=Object.values(decks)
       return <FlatList data={deckList}
-        renderItem={({ item, index }) => <Deck id={index} title={item.title} size={item.questions.length} viewDeck={this.viewDeck}/>}
+        renderItem={({ item,index }) =>
+        <Deck id={index} title={item.title} size={item.questions.length} viewDeck={this.viewDeck}/>}
         keyExtractor={item => item.title}
         />
 
@@ -58,7 +59,7 @@ class DeckList extends Component {
   }
 }
 
-function mapStateToProps (decks) {
+function mapStateToProps (decks,{navigation}) {
   return {
     decks
   }

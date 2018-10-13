@@ -3,13 +3,14 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { createBottomTabNavigator , createStackNavigator } from 'react-navigation'
 import reducer from './reducers'
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import DeckList from './components/DeckList'
 import DeckDetails from './components/DeckDetails'
 import Card from './components/Card'
 import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
+import QuizDetails from './components/QuizDetails'
 import { black, white } from './utils/colors'
 
 const Tabs = createBottomTabNavigator ({
@@ -18,6 +19,13 @@ const Tabs = createBottomTabNavigator ({
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-home' size={30} color={tintColor} />
+    },
+  },
+  AddDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'Add Deck',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-add' size={30} color={tintColor} />
     },
   },
 }, {
@@ -44,7 +52,7 @@ const MainNavigator = createStackNavigator({
     DeckList: {
       screen: Tabs,
       },
-      Deck: {
+      DeckDetails: {
         screen: DeckDetails,
         navigationOptions:{
           headerTintColor: white,
@@ -52,14 +60,32 @@ const MainNavigator = createStackNavigator({
             backgroundColor: black
         }
       }
-    }
+    },
+    QuizDetails: {
+      screen: QuizDetails,
+      navigationOptions:{
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: black
+      }
+      }
+    },
+    NewCard: {
+        screen: NewCard,
+        navigationOptions:{
+          headerTintColor: white,
+          headerStyle: {
+            backgroundColor: black
+        }
+      }
+    },
 })
 
 export default class App extends React.Component {
   render() {
     return (
     <Provider store={createStore(reducer)}>
-      <View style={{flex: 1}}>
+      <View style={{flex: 1,backgroundColor:'red'}}>
         <MainNavigator />
       </View>
     </Provider>

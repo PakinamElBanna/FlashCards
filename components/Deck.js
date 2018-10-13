@@ -29,12 +29,11 @@ const SubTitle = styled.Text`
   margin-bottom: 10px;
 `
 
-const Deck = ({id, title, size, viewDeck}) =>
+const Deck = ({title, size, viewDeck}) =>
 
-<TouchableOpacity onPress={() => viewDeck(id)}>
+<TouchableOpacity onPress={() => viewDeck(title)}>
   <DeckView>
     <Title>{title}</Title>
-    <Title>{id}</Title>
     <SubTitle>({size} cards)</SubTitle>
   </DeckView>
 </TouchableOpacity>

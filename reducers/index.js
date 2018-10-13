@@ -12,6 +12,17 @@ function decks (state = {}, action) {
         ...state,
         ...action.deck
       }
+    case ADD_CARD:
+    debugger
+        return {
+          ...state,
+          ...action.card
+        }
+    case ADD_DECK:
+        return {
+          ...state,
+          ...action.deck
+        }
     default :
       return state
   }

@@ -16,18 +16,41 @@ background: white;
 padding: 10px;
 flex:1;`
 
+
+
 class DeckDetails extends Component{
   render() {
+    const viewQuiz = () => {
+      this.props.navigation.navigate(
+        'QuizDetails',
+        {deck: this.props.deck}
+      )
+    }
+    const addCard = () => {
+      this.props.navigation.navigate(
+        'NewCard',
+        {deck: this.props.deck}
+      )
+    }
+    const { deck, deckId } = this.props
     return (
       <DeckDetailsView>
-      <Deck />
-      <TextButton style={{backgroundColor: black}} onPress={() =>test('add')}>
+      <Deck title={deck.title} size={deck.questions.length}/>
+      <TextButton color={white} style={{backgroundColor: black}} onPress={addCard}>
         Add Card</TextButton>
-      <TextButton style={{backgroundColor: orange}} onPress={() =>test('start')}>
+      <TextButton color={white} style={{backgroundColor: orange}} onPress={viewQuiz}>
         Start Quiz</TextButton>
       </DeckDetailsView>
     )
   }
 }
 
-export default DeckDetails
+function mapStateToProps (state, {navigation}) {
+  const { deckId } = navigation.state.params
+  return {
+    deckId,
+    deck: state[deckId]
+  }
+}
+
+export default connect(mapStateToProps)(DeckDetails)
