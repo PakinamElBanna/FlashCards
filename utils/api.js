@@ -7,6 +7,17 @@ export function getDecks () {
                      .then(formatResults)
 }
 
+  const getDeck = async (id) => {
+  try{
+    const decks = await getDecks()
+    return decks[id]
+  }
+  catch(error){
+    console.log(error)
+  }
+
+}
+
 export function createDeck ({ deck, key }) {
  AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     [key]: deck
@@ -26,3 +37,5 @@ export function createCard ({ card, key }) {
 })
 .catch((error) => console.log(error))
 }
+
+export {getDeck}

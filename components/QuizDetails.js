@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import TextButton from './TextButton'
+import {getDeck} from '../utils/api'
 import { white, orange,black } from '../utils/colors'
 import { NavigationActions } from 'react-navigation'
 
@@ -41,6 +42,17 @@ class QuizDetails extends Component {
     showScore: false,
     deck: {}
   }
+
+  componentDidMount() {
+    const id = this.props.deck.title
+    getDeck(id).then((deck)=>{
+      debugger
+      this.setState(()=>{
+        deck
+      })
+    })
+  }
+
   render () {
     const viewAnswer = () => {
       this.setState({
