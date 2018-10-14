@@ -13,10 +13,14 @@ function decks (state = {}, action) {
         ...action.deck
       }
     case ADD_CARD:
-    debugger
         return {
           ...state,
-          ...action.card
+          [action.deckTitle]: {
+            ...state[action.deckTitle],
+            questions: {
+              ...state[action.deckTitle].questions.concat([action.card])
+            }
+          }
         }
     case ADD_DECK:
         return {

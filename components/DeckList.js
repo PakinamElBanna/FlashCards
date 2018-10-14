@@ -36,9 +36,10 @@ class DeckList extends Component {
 // TODO: Youcant fetch itemby title
     renderDeckList = (decks) => {
       const deckList=Object.values(decks)
+      debugger
       return <FlatList data={deckList}
-        renderItem={({ item,index }) =>
-        <Deck id={index} title={item.title} size={item.questions.length} viewDeck={this.viewDeck}/>}
+        renderItem={({ item }) =>
+        <Deck key={item.title} title={item.title} size={item.questions.length} viewDeck={this.viewDeck(item.title)}/>}
         keyExtractor={item => item.title}
         />
 
@@ -46,11 +47,11 @@ class DeckList extends Component {
 
   render () {
     const { ready } = this.state
-    const { decks } = this.props
+
     return (
       <DeckListView>
         {this.state.ready === true ?
-          this.renderDeckList(decks)
+          this.renderDeckList(this.props.decks)
       :
           <Text>Loading</Text>
       }

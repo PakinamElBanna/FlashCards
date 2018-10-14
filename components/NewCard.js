@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { orange, white } from '../utils/colors'
 import { addCard } from '../actions'
+import { createCard } from '../utils/api'
+import { NavigationActions } from 'react-navigation'
+import {receiveDecks} from '../actions'
+
 
 class NewCard extends Component {
   state = {
@@ -20,19 +24,31 @@ class NewCard extends Component {
      })
   }
 
-  handleAnswerChange=(event)=> {
-    const answer = event.nativeEvent.text
+  handleAnswerChange=(e)=> {
     this.setState({
-      answer
+      answer: e
     })
   }
 
-  submit = () =>{
-    console.log(this.state)
-    // this.props.dispatch(addCard(this.state, this.props.deckId))
+  const submit = () => {
+    const key =  this.props.deckTitle
+    const card = this.state
+
+    this.props.dispatch(addCard(key,card))
+
+    this.setState({
+      question: '',
+      answer: '',
+    })
+
+    this.props.navigation.navigate(
+             'DeckDetails',
+             {deckId: key}
+           )
+
+   createCard({key, card})
   }
 
-    const deckTitle = this.props.navigation.state.params.deck.title
     const NewCardView = styled.View`
       flex: 1;
       background: white;
@@ -56,21 +72,20 @@ class NewCard extends Component {
     // const { deck } = this.props
     return (
       <NewCardView>
-        <Title>Add a New Card to <NewCardTitle>{deckTitle}</NewCardTitle></Title>
+        <Title>Add a New Card to <NewCardTitle>{this.props.deckTitle}</NewCardTitle></Title>
         <QuizTextInput
           placeholder="Question"
-          onTextChange={this.handleQuestionChange}
+          onChangeText={(question) => this.setState({question})}
+          value={this.state.question}
 
         />
       <QuizTextInput
           placeholder="Answer"
-          onChange={handleAnswerChange}
+          onChangeText={(answer) => this.setState({answer})}
+          value={this.state.answer}
         />
-        <TouchableOpacity
-          style={{backgroundColor: orange}}
-          onPress={submit}>
-            <Text style={{color: white}}>SUBMIT</Text>
-        </TouchableOpacity>
+      <TextButton color={white} style={{marginTop: 20, backgroundColor: orange}} onPress={() => submit()}>
+          Submit</TextButton>
     </NewCardView>
     )
   }
@@ -78,7 +93,9 @@ class NewCard extends Component {
 
 function mapStateToProps(state , {navigation}) {
   const deckTitle = navigation.state.params.deck.title
+  const decks = state
   return {
+    decks,
     deckTitle
   }
 }

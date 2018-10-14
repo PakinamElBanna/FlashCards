@@ -37,6 +37,7 @@ class QuizDetails extends Component {
 
     const { deck } = this.props
     const { questionIndex } = this.state
+    debugger
     return (
       <QuizView>
       <QuizText>{deck.questions[questionIndex].question}</QuizText>

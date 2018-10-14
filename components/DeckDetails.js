@@ -20,6 +20,8 @@ flex:1;`
 
 class DeckDetails extends Component{
   render() {
+    const { deck, deckId } = this.props
+
     const viewQuiz = () => {
       this.props.navigation.navigate(
         'QuizDetails',
@@ -32,13 +34,16 @@ class DeckDetails extends Component{
         {deck: this.props.deck}
       )
     }
-    const { deck, deckId } = this.props
+    const emptyDeck = (size) => {
+      return size < 1
+    }
+
     return (
       <DeckDetailsView>
       <Deck title={deck.title} size={deck.questions.length}/>
       <TextButton color={white} style={{backgroundColor: black}} onPress={addCard}>
         Add Card</TextButton>
-      <TextButton color={white} style={{backgroundColor: orange}} onPress={viewQuiz}>
+      <TextButton disabled={emptyDeck(deck.questions.length)} color={white} style={!emptyDeck(deck.questions.length)? {backgroundColor: orange} : {backgroundColor: orange,opacity: 0.5}} onPress={viewQuiz}>
         Start Quiz</TextButton>
       </DeckDetailsView>
     )

@@ -32,7 +32,7 @@ class NewDeck extends Component {
     questions: []
   }
 
-  submit = (p) => {
+  submit = () => {
     const key = this.state.title
     const deck =this.state
     this.props.dispatch(addDeck({
@@ -59,7 +59,7 @@ class NewDeck extends Component {
       <Title>What is the title of your new deck?</Title>
       <NewDeckInput
         onChangeText={(title) => this.setState({title})}
-        value={this.state.text}
+        value={this.state.title}
       />
     <TextButton disabled={this.state.title.length < 3} color={white} style={{marginTop: 20, backgroundColor: orange}} onPress={() => this.submit()}>
       Submit</TextButton>

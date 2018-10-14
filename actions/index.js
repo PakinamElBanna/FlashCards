@@ -10,13 +10,6 @@ export function receiveDecks(decks) {
   }
 }
 
-export function receiveDeck(deck) {
-  return {
-    type: RECEIVE_DECK,
-    deck
-  }
-}
-
 export function addDeck (deck) {
   return {
     type: ADD_DECK,
@@ -24,10 +17,11 @@ export function addDeck (deck) {
   }
 }
 
-export function addCard (card) {
+export function addCard(deckTitle,card) {
   debugger
   return {
     type: ADD_CARD,
-    card
+    card,
+    deckTitle
   }
 }
