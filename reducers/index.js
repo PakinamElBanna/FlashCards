@@ -23,7 +23,6 @@ function decks (state = {}, action) {
         }
       }
     case ADD_DECK:
-    debugger
         return {
           ...state,
           ...action.deck

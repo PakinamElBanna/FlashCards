@@ -17,8 +17,8 @@ const Tabs = createBottomTabNavigator ({
   Home: {
     screen: DeckList,
     navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-home' size={30} color={tintColor} />
+      tabBarLabel: 'Decks',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-albums' size={30} color={tintColor} />
     },
   },
   AddDeck: {
@@ -88,13 +88,23 @@ const MainNavigator = createStackNavigator({
         }
       }
     },
+    AddDeck: {
+      screen: NewDeck,
+      title:"TITLE",
+      navigationOptions:{
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: black
+      }
+    }
+    },
 })
 
 export default class App extends React.Component {
   render() {
     return (
     <Provider store={createStore(reducer)}>
-      <View style={{flex: 1,backgroundColor:'red'}}>
+      <View style={{flex: 1}}>
         <MainNavigator />
       </View>
     </Provider>

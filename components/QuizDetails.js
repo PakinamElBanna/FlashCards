@@ -9,13 +9,12 @@ import { NavigationActions } from 'react-navigation'
 const QuizView = styled.View`
   background: #fff;
   flex:1;
-  padding: 20px;
   align-items: center;
 `
 const QuizAnswer = styled.Text`
   font-size: 14px;
   margin-bottom: 10px;
-  color: orange;
+  color: black;
 `
 const QuizText = styled.Text`
   font-size: 16px;
@@ -26,6 +25,13 @@ const AnswerView = styled.View`
   align-items: center;
 `
 class QuizDetails extends Component {
+  static navigationOptions = ({ navigation }) => {
+  const { deck } = navigation.state.params
+  return {
+    title: 'Quiz'
+  }
+}
+
   state={
     showAnswer:false,
     questionIndex: 0,
@@ -76,6 +82,7 @@ class QuizDetails extends Component {
           }
         ))
       }
+      this.props.navigation.setParams({title: this.state.questionsAnswered})
     }
 
     const restartQuiz = () => {
@@ -122,15 +129,17 @@ class QuizDetails extends Component {
     const {deck}=this.props
 
     return (
-        <QuizView>{displayQuiz()}</QuizView>
+        <View style={{flex:1, backgroundColor: white, padding: 20}}>
+          <Text style={{padding: 10}}>{questionIndex}/{deck.questions.length}</Text>
+          <QuizView>{displayQuiz()}</QuizView>
+        </View>
+
     )
   }
 }
 
 function mapStateToProps (state, {navigation}) {
   const { deck } = navigation.state.params
-  debugger
-
   return {
     deck
   }

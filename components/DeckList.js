@@ -5,13 +5,15 @@ import Deck from './Deck'
 import styled from 'styled-components'
 import {receiveDecks} from '../actions'
 import { getDecks }from '../utils/api'
+import { black } from '../utils/colors'
 
 const DeckListView = styled.View`
-  background: #004783;
+  background: #3291a0;
   flex:1;
   padding: 10px;
 `
 class DeckList extends Component {
+
   state = {
   ready: false
 }

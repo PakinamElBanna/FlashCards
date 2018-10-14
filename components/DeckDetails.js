@@ -19,6 +19,13 @@ flex:1;`
 
 
 class DeckDetails extends Component{
+  static navigationOptions = ({ navigation }) => {
+  const { deckId } = navigation.state.params
+  return {
+    title: deckId
+  }
+}
+
   render() {
     const { deck, deckId } = this.props
 

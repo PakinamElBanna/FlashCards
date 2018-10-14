@@ -27,6 +27,7 @@ const NewDeckInput = styled.TextInput`
   width: 90%;
 `
 class NewDeck extends Component {
+
   state = {
     title: '',
     questions: []
@@ -68,8 +69,7 @@ class NewDeck extends Component {
 }
 
 
-function mapStateToProps(state) {
-  debugger
+function mapStateToProps(state,{navigation}) {
   return {
     state
   }

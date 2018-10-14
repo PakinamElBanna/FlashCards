@@ -11,6 +11,11 @@ import {receiveDecks} from '../actions'
 
 
 class NewCard extends Component {
+  static navigationOptions = ({ navigation }) => {
+  return {
+    title: 'Add Card'
+  }
+}
   state = {
     question: '',
     answer: ''
@@ -92,7 +97,7 @@ class NewCard extends Component {
 }
 
 function mapStateToProps(state , {navigation}) {
-  debugger
+
   const deckTitle = navigation.state.params.deck.title
   const decks = state
   return {

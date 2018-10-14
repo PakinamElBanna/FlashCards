@@ -17,7 +17,6 @@ function returnData (results) {
 }
 
 export function formatResults (results) {
-  debugger
   return results === null
     ? setDummyData()
     : returnData(JSON.parse(results))
