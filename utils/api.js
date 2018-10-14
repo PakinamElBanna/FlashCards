@@ -16,12 +16,13 @@ export function createDeck ({ deck, key }) {
 export function createCard ({ card, key }) {
   AsyncStorage.getItem(DECKS_STORAGE_KEY)
   .then((results) => {
-    const decks = JSON.parse(results)
-    let mergedQuestions = decks[key].questions.concat([card])
+    debugger
+    let mergedQuestions = JSON.parse(results)[key].questions.concat([card])
     let deck = {title:key, questions: mergedQuestions}
     decks[key] = undefined
     delete decks[key]
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
     createDeck({deck, key})
 })
+.catch((error) => console.log(error))
 }

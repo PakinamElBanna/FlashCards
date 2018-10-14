@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput,TouchableOpacity, Platform, StyleSheet } from 'react-native'
+import { View, Text, TextInput,TouchableOpacity, Platform, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import TextButton from './TextButton'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -24,22 +24,25 @@ class NewCard extends Component {
   render () {
 
    handleQuestionChange=(e)=> {
-     this.setState({
+     this.setState(() => {
        question: e
      })
   }
 
   handleAnswerChange=(e)=> {
-    this.setState({
+    this.setState(() => {
       answer: e
     })
   }
 
   const submit = () => {
-    const key =  this.props.deckTitle
+    const key =  this.props.deck.title
     const card = this.state
+    const {deck} = this.props
 
     this.props.dispatch(addCard(key,card))
+
+    createCard({key, card})
 
     this.setState({
       question: '',
@@ -48,10 +51,8 @@ class NewCard extends Component {
 
     this.props.navigation.navigate(
              'DeckDetails',
-             {deckId: key}
+              {deck: this.props.deck}
            )
-
-   createCard({key, card})
   }
 
     const NewCardView = styled.View`
@@ -74,10 +75,11 @@ class NewCard extends Component {
       width: 90%;
       padding: 5px;
     `
-    // const { deck } = this.props
+    const { deck } = this.props
     return (
+      <KeyboardAvoidingView behavior="padding" enabled style={{flex:1}}>
       <NewCardView>
-        <Title>Add a New Card to <NewCardTitle>{this.props.deckTitle}</NewCardTitle></Title>
+        <Title>Add a New Card to <NewCardTitle>{deck.title}</NewCardTitle></Title>
         <QuizTextInput
           placeholder="Question"
           onChangeText={(question) => this.setState({question})}
@@ -92,20 +94,17 @@ class NewCard extends Component {
       <TextButton color={white} style={{marginTop: 20, backgroundColor: orange}} onPress={() => submit()}>
           Submit</TextButton>
     </NewCardView>
+    </KeyboardAvoidingView>
     )
   }
 }
 
 function mapStateToProps(state , {navigation}) {
-
-  const deckTitle = navigation.state.params.deck.title
-  const decks = state
+  const {title} = navigation.state.params.deck
+  const deck = state[title]
   return {
-    decks,
-    deckTitle
+    deck
   }
 }
-
-
 
 export default connect(mapStateToProps)(NewCard)

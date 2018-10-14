@@ -27,10 +27,10 @@ class DeckList extends Component {
       }))
   }
 
- viewDeck = (title) => {
+ viewDeck = (deck) => {
    this.props.navigation.navigate(
             'DeckDetails',
-            {deckId: title}
+            {deck}
           )
  }
 
@@ -38,7 +38,7 @@ renderDeckList = (decks) => {
    const deckList=Object.values(decks)
    return <FlatList data={deckList}
      renderItem={({item}) =>
-     <Deck deck={item} title={item.title} size={item.questions.length} viewDeck={this.viewDeck}/>}
+     <Deck deck={item} onPress={() => this.viewDeck(item)}/>}
       keyExtractor={item => item.title}
       />
  }

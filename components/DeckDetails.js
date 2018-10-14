@@ -19,26 +19,41 @@ flex:1;`
 
 
 class DeckDetails extends Component{
+  state = {
+    deck: null
+  }
+
   static navigationOptions = ({ navigation }) => {
-  const { deckId } = navigation.state.params
+  const { deck } = navigation.state.params
   return {
-    title: deckId
+    title: deck.title
   }
 }
 
-  render() {
-    const { deck, deckId } = this.props
+// static getDerivedStateFromProps(props, state) {
+//   if (props.deck !== state.deck) {
+//     return {
+//       deck: props.deck
+//     }
+//   }
+//   return null;
+//
+// }
 
+  render() {
+    const { deckId } = this.props
     const viewQuiz = () => {
+      const deck = this.props.deck
       this.props.navigation.navigate(
         'QuizDetails',
-        {deck: this.props.deck}
+        {deck}
       )
     }
     const addCard = () => {
+      const deck = this.props.deck
       this.props.navigation.navigate(
         'NewCard',
-        {deck: this.props.deck}
+          {deck}
       )
     }
     const emptyDeck = (size) => {
@@ -47,10 +62,10 @@ class DeckDetails extends Component{
 
     return (
       <DeckDetailsView>
-      <Deck title={deck.title} size={deck.questions.length}/>
+      <Deck deck={this.props.deck}/>
       <TextButton color={white} style={{backgroundColor: black}} onPress={addCard}>
         Add Card</TextButton>
-      <TextButton disabled={emptyDeck(deck.questions.length)} color={white} style={!emptyDeck(deck.questions.length)? {backgroundColor: orange} : {backgroundColor: orange,opacity: 0.5}} onPress={viewQuiz}>
+      <TextButton disabled={emptyDeck(this.props.deck.questions.length)} color={white} style={!emptyDeck(this.props.size)? {backgroundColor: orange} : {backgroundColor: orange,opacity: 0.5}} onPress={viewQuiz}>
         Start Quiz</TextButton>
       </DeckDetailsView>
     )
@@ -58,10 +73,12 @@ class DeckDetails extends Component{
 }
 
 function mapStateToProps (state, {navigation}) {
-  const { deckId } = navigation.state.params
+  const deckId  = navigation.state.params.deck.title
+  const deck = state[deckId]
+  const size = Object.keys(deck.questions).length
   return {
-    deckId,
-    deck: state[deckId]
+    deck,
+    size
   }
 }
 
