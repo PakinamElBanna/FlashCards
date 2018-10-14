@@ -4,7 +4,7 @@ export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 
 export function receiveDecks(decks) {
-  debugger
+
   return {
     type: RECEIVE_DECKS,
     decks
@@ -19,7 +19,7 @@ export function addDeck(deck) {
 }
 
 export function addCard(deckTitle,card) {
-  debugger
+
   return {
     type: ADD_CARD,
     card,
