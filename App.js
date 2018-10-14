@@ -52,6 +52,15 @@ const MainNavigator = createStackNavigator({
     Home: {
       screen: Tabs,
       },
+      AddDeck: {
+        screen: NewDeck,
+        navigationOptions:{
+          headerTintColor: white,
+          headerStyle: {
+            backgroundColor: black
+        }
+      },
+      },
       DeckDetails: {
         screen: DeckDetails,
         navigationOptions:{

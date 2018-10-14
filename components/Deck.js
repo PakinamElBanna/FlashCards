@@ -39,4 +39,5 @@ const Deck = ({title, size, viewDeck}) =>
 </TouchableOpacity>
 
 
+
 export default Deck

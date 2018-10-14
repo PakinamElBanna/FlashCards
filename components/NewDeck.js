@@ -43,14 +43,13 @@ class NewDeck extends Component {
     title: ''
   })
 
-  this.toHome()
+    this.props.navigation.navigate(
+             'DeckDetails',
+             {deckId: key}
+           )
 
   createDeck({key, deck})
 
-  }
-
-  toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back())
   }
 
   render () {
@@ -70,6 +69,7 @@ class NewDeck extends Component {
 
 
 function mapStateToProps(state) {
+  debugger
   return {
     state
   }

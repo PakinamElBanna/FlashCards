@@ -109,7 +109,6 @@ class QuizDetails extends Component {
     </QuizView>
 
     }else {
-      debugger
       return <QuizView>
         <QuizText>Correct Answers: {(this.state.correct / this.props.deck.questions.length) * 100}%</QuizText>
         <AnswerView>
@@ -130,6 +129,7 @@ class QuizDetails extends Component {
 
 function mapStateToProps (state, {navigation}) {
   const { deck } = navigation.state.params
+  debugger
 
   return {
     deck

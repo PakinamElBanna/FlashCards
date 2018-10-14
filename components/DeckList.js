@@ -24,7 +24,6 @@ class DeckList extends Component {
         ready: true
       }))
   }
- _keyExtractor = (item, index) => item.title;
 
  viewDeck = (title) => {
    this.props.navigation.navigate(
@@ -36,11 +35,10 @@ class DeckList extends Component {
 renderDeckList = (decks) => {
    const deckList=Object.values(decks)
    return <FlatList data={deckList}
-     renderItem={({ item,index }) =>
-     <Deck id={index} title={item.title} size={item.questions.length} viewDeck={this.viewDeck}/>}
-     keyExtractor={item => item.title}
-     />
-
+     renderItem={({item}) =>
+     <Deck deck={item} title={item.title} size={item.questions.length} viewDeck={this.viewDeck}/>}
+      keyExtractor={item => item.title}
+      />
  }
 
   render () {
