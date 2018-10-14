@@ -14,7 +14,7 @@ import QuizDetails from './components/QuizDetails'
 import { black, white } from './utils/colors'
 
 const Tabs = createBottomTabNavigator ({
-  DeckList: {
+  Home: {
     screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Home',
@@ -49,7 +49,7 @@ const Tabs = createBottomTabNavigator ({
 })
 
 const MainNavigator = createStackNavigator({
-    DeckList: {
+    Home: {
       screen: Tabs,
       },
       DeckDetails: {
