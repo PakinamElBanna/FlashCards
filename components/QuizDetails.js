@@ -32,6 +32,15 @@ class QuizDetails extends Component {
     title: 'Quiz'
   }
 }
+static getDerivedStateFromProps(props, state) {
+  if (props.deck !== state.deck) {
+    return {
+      deck: props.deck
+    }
+  }
+  return null;
+
+}
 
   state={
     showAnswer:false,
@@ -46,7 +55,6 @@ class QuizDetails extends Component {
   componentDidMount() {
     const id = this.props.deck.title
     getDeck(id).then((deck)=>{
-      debugger
       this.setState(()=>{
         deck
       })
@@ -61,7 +69,7 @@ class QuizDetails extends Component {
     }
 
     const markAsCorrect = () => {
-      if(Object.keys(this.props.deck.questions).length > this.state.questionsAnswered) {
+      if(Object.keys(this.state.deck.questions).length > this.state.questionsAnswered) {
         this.setState(prevState =>
             ({correct: prevState.correct + 1,
             questionsAnswered: prevState.questionsAnswered+1,
@@ -79,7 +87,7 @@ class QuizDetails extends Component {
     }
 
     const markAsIncorrect = () => {
-      if(Object.keys(this.props.deck.questions).length > this.state.questionsAnswered) {
+      if(Object.keys(this.state.deck.questions).length > this.state.questionsAnswered) {
         this.setState(prevState =>
             ({incorrect: prevState.incorrect + 1,
             questionsAnswered: prevState.questionsAnswered+1,
@@ -111,7 +119,7 @@ class QuizDetails extends Component {
   const goBack =  () => this.props.navigation.dispatch(NavigationActions.back())
 
     const displayQuiz =()=>{
-      if(questionsAnswered !== Object.keys(this.props.deck.questions).length){
+      if(questionsAnswered !== Object.keys(this.state.deck.questions).length){
         return <QuizView>
         <QuizText>{deck.questions[questionIndex].question}</QuizText>
         <TextButton color={orange} style={{backgroundColor: 'transparent'}} onPress={viewAnswer}>
@@ -129,7 +137,7 @@ class QuizDetails extends Component {
 
     }else {
       return <QuizView>
-        <QuizText>Correct Answers: {(this.state.correct / this.props.deck.questions.length) * 100}%</QuizText>
+        <QuizText>Correct Answers: {(this.state.correct / this.state.deck.questions.length) * 100}%</QuizText>
         <AnswerView>
           <TextButton color={white}  style={{backgroundColor: orange}}  onPress={restartQuiz}>Start Over</TextButton>
           <TextButton color={white}  style={{backgroundColor: black}}  onPress={goBack}>Back</TextButton>
@@ -138,11 +146,11 @@ class QuizDetails extends Component {
     }
     }
     const { questionIndex, questionsAnswered} = this.state
-    const {deck}=this.props
+    const {deck}=this.state
 
     return (
         <View style={{flex:1, backgroundColor: white, padding: 20}}>
-          <Text style={{padding: 10}}>{questionIndex}/{deck.questions.length}</Text>
+          <Text style={{padding: 10}}>{questionIndex}/{this.state.deck.questions.length}</Text>
           <QuizView>{displayQuiz()}</QuizView>
         </View>
 
