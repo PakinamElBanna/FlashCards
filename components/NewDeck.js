@@ -3,10 +3,10 @@ import { View, Text, TextInput } from 'react-native'
 import TextButton from './TextButton'
 import styled from 'styled-components'
 import { white,orange } from '../utils/colors'
-import { addDeck } from '../actions'
+import { receiveDecks } from '../actions'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { createDeck } from '../utils/api'
+import { createNewDeck } from '../utils/api'
 
 const NewDeckView = styled.View`
 margin: 0px auto;
@@ -35,21 +35,17 @@ class NewDeck extends Component {
 
   submit = () => {
     const key = this.state.title
-    const deck =this.state
-    this.props.dispatch(addDeck({
-      [key]: this.state
-  }))
-
-  this.setState({
-    title: ''
-  })
-
-    this.props.navigation.navigate(
-             'DeckDetails',
-             {deckId: key}
-           )
-
-  createDeck({key, deck})
+    const deck = this.state
+    createNewDeck({key, deck}).then((decks)=>{
+      this.props.dispatch(receiveDecks(decks))
+      this.setState({
+        title: ''
+      })
+      this.props.navigation.navigate(
+               'DeckDetails',
+               {deck: decks[key]}
+             )
+    })
 
   }
 

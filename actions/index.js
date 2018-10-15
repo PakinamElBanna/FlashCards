@@ -4,6 +4,7 @@ export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 
 export function receiveDecks(decks) {
+debugger
   return {
     type: RECEIVE_DECKS,
     decks

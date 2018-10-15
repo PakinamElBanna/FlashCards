@@ -18,6 +18,20 @@ export function getDecks () {
 
 }
 
+const createNewDeck = async ({ deck, key }) => {
+try{
+  AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+     [key]: deck
+   }))
+  const newDecks = await getDecks()
+  return newDecks
+}
+catch(error){
+  console.log(error)
+}
+
+}
+
 export function createDeck ({ deck, key }) {
  AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     [key]: deck
@@ -33,7 +47,9 @@ try{
   decks[key] = undefined
   delete decks[key]
   AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
-  createDeck({deck, key})
+  AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+     [key]: deck
+   }))
   const finalDecks = await getDecks()
   return finalDecks
 }
@@ -42,4 +58,4 @@ catch(error){
 }
 }
 
-export {getDeck, createCard}
+export {getDeck, createCard, createNewDeck}
