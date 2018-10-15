@@ -38,12 +38,15 @@ componentDidMount() {
           )
  }
 
+ _renderItem = ({item}) => (
+   <Deck title={item.title} deck={item} onPress={() => this.viewDeck(item)}/>
+ )
+
 renderDeckList = (decks) => {
    const deckList = Object.values(decks)
    return <FlatList data = {deckList}
-                    renderItem={({item}) =>
-                    <Deck deck={item} onPress={() => this.viewDeck(item)}/>}
-                      keyExtractor={item => item.title}
+                     keyExtractor={(item, index) => item.title}
+                     renderItem={this._renderItem}
                     />
  }
 
@@ -52,7 +55,7 @@ renderDeckList = (decks) => {
     return (
       <Wrapper style={{backgroundColor: '#3291a0'}}>
         {ready?
-          this.renderDeckList(decks)
+          this.renderDeckList(this.props.decks)
       :
           <Text>Loading</Text>
       }
