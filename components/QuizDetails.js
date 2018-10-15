@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import TextButton from './TextButton'
 import {getDeck} from '../utils/api'
 import { white, orange,black } from '../utils/colors'
+import { Title, Container } from '../utils/styles'
 import { NavigationActions } from 'react-navigation'
 
 const QuizView = styled.View`
@@ -20,10 +21,6 @@ const QuizAnswer = styled.Text`
 const QuizText = styled.Text`
   font-size: 16px;
   margin: 0 auto;
-`
-const AnswerView = styled.View`
-  margin: 0 auto;
-  align-items: center;
 `
 class QuizDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -121,27 +118,27 @@ static getDerivedStateFromProps(props, state) {
     const displayQuiz =()=>{
       if(questionsAnswered !== Object.keys(this.state.deck.questions).length){
         return <QuizView>
-        <QuizText>{deck.questions[questionIndex].question}</QuizText>
+        <Title>{deck.questions[questionIndex].question}</Title>
         <TextButton color={orange} style={{backgroundColor: 'transparent'}} onPress={viewAnswer}>
            Answer</TextButton>
         {this.state.showAnswer === true &&
-          <AnswerView>
-          <QuizAnswer>{deck.questions[questionIndex].answer}</QuizAnswer>
-        <View>
-        <TextButton color={white}  style={{backgroundColor: 'green'}}  onPress={markAsCorrect}>Correct</TextButton>
-        <TextButton color={white}  style={{backgroundColor: 'red'}}  onPress={markAsIncorrect}>Incorrect</TextButton>
+          <View style={{marginTop: 20, alignItems: 'center'}}>
+          <Title style={{color: black}}>{deck.questions[questionIndex].answer}</Title>
+        <View style={{marginTop: 10}}>
+        <TextButton color={white}  style={{backgroundColor: '#3291a0'}}  onPress={markAsCorrect}>Correct</TextButton>
+        <TextButton color={white}  style={{backgroundColor: orange}}  onPress={markAsIncorrect}>Incorrect</TextButton>
       </View>
-      </AnswerView>
+    </View>
     }
     </QuizView>
 
     }else {
       return <QuizView>
-        <QuizText>Correct Answers: {(this.state.correct / this.state.deck.questions.length) * 100}%</QuizText>
-        <AnswerView>
+        <Title>Correct Answers: {(this.state.correct / this.state.deck.questions.length) * 100}%</Title>
+        <Container style={{alignItems: 'center'}}>
           <TextButton color={white}  style={{backgroundColor: orange}}  onPress={restartQuiz}>Start Over</TextButton>
           <TextButton color={white}  style={{backgroundColor: black}}  onPress={goBack}>Back</TextButton>
-        </AnswerView>
+        </Container>
       </QuizView>
     }
     }
@@ -150,7 +147,7 @@ static getDerivedStateFromProps(props, state) {
 
     return (
         <View style={{flex:1, backgroundColor: white, padding: 20}}>
-          <Text style={{padding: 10}}>{questionIndex}/{this.state.deck.questions.length}</Text>
+          <Text style={{paddingBottom: 10, color: orange, fontSize: 12}}>{questionIndex}/{this.state.deck.questions.length} answered</Text>
           <QuizView>{displayQuiz()}</QuizView>
         </View>
 

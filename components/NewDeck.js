@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput } from 'react-native'
+import { View, Text } from 'react-native'
 import TextButton from './TextButton'
 import styled from 'styled-components'
 import { white,orange } from '../utils/colors'
@@ -7,20 +7,8 @@ import { receiveDecks } from '../actions'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { createNewDeck } from '../utils/api'
+import { Wrapper, Title, TextInput } from '../utils/styles'
 
-const NewDeckView = styled.View`
-margin: 0px auto;
-display: flex;
-align-items: center;
-width: 100%;
-margin: 0 auto;
-background: white;
-padding: 10px;
-flex:1;`
-const Title = styled.Text`
-font-size: 18px;
-margin-bottom: 10px;
-  `
 const NewDeckInput = styled.TextInput`
   height: 40;
   border: 0 ;
@@ -51,7 +39,7 @@ class NewDeck extends Component {
 
   render () {
     return (
-      <NewDeckView>
+      <Wrapper style={{alignItems: 'center'}}>
       <Title>What is the title of your new deck?</Title>
       <NewDeckInput
         onChangeText={(title) => this.setState({title})}
@@ -59,7 +47,7 @@ class NewDeck extends Component {
       />
     <TextButton disabled={this.state.title.length < 3} color={white} style={{marginTop: 20, backgroundColor: orange}} onPress={() => this.submit()}>
       Submit</TextButton>
-    </NewDeckView>
+  </Wrapper>
     )
   }
 }

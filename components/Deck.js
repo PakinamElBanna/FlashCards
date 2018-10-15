@@ -4,6 +4,7 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import TextButton from './TextButton'
 import styled from 'styled-components'
 import { black, white, orange } from '../utils/colors'
+import { Title, SubTitle } from '../utils/styles'
 
 const DeckView = styled.View`
   margin: 0px auto;
@@ -14,15 +15,6 @@ const DeckView = styled.View`
   border-radius: 5px;
   background: white;
   padding: 10px;
-`
-
-const Title = styled.Text`
-  font-size: 16px;
-`
-
-const SubTitle = styled.Text`
-  font-size: 12px;
-  margin-bottom: 10px;
 `
 
 const Deck = ({deck, ...rest}) =>

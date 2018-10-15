@@ -12,7 +12,9 @@ import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
 import QuizDetails from './components/QuizDetails'
 import { black, white } from './utils/colors'
+import { SafeAreaView } from 'react-navigation';
 
+SafeAreaView.setStatusBarHeight(0);
 const Tabs = createBottomTabNavigator ({
   Home: {
     screen: DeckList,
@@ -28,7 +30,8 @@ const Tabs = createBottomTabNavigator ({
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-add' size={30} color={tintColor} />
     },
   },
-}, {
+},
+{
   navigationOptions: {
     header: null
   },
@@ -51,15 +54,14 @@ const Tabs = createBottomTabNavigator ({
 const MainNavigator = createStackNavigator({
     Home: {
       screen: Tabs,
+      navigationOptions:{
+        headerStyle: {
+          height:0
+          }
+        },
       },
       AddDeck: {
         screen: NewDeck,
-        navigationOptions:{
-          headerTintColor: white,
-          headerStyle: {
-            backgroundColor: black
-        }
-      },
       },
       DeckDetails: {
         screen: DeckDetails,
@@ -76,7 +78,7 @@ const MainNavigator = createStackNavigator({
         headerTintColor: white,
         headerStyle: {
           backgroundColor: black
-      }
+        }
       }
     },
     NewCard: {
@@ -90,13 +92,12 @@ const MainNavigator = createStackNavigator({
     },
     AddDeck: {
       screen: NewDeck,
-      title:"TITLE",
       navigationOptions:{
         headerTintColor: white,
         headerStyle: {
           backgroundColor: black
+        }
       }
-    }
     },
 })
 

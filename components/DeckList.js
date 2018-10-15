@@ -5,10 +5,9 @@ import Deck from './Deck'
 import { receiveDecks } from '../actions'
 import { getDecks }from '../utils/api'
 import { black } from '../utils/colors'
-import { Container } from '../utils/styles'
+import { Wrapper } from '../utils/styles'
 
 class DeckList extends Component {
-
   state = {
   decks: {},
   ready:false
@@ -51,13 +50,13 @@ renderDeckList = (decks) => {
   render () {
     const { ready, decks } = this.state
     return (
-      <Container style={{backgroundColor: '#3291a0'}}>
+      <Wrapper style={{backgroundColor: '#3291a0'}}>
         {ready?
           this.renderDeckList(decks)
       :
           <Text>Loading</Text>
       }
-    </Container>
+    </Wrapper>
     )
   }
 }

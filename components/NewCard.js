@@ -1,35 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput,TouchableOpacity, Platform, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Platform, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native'
 import TextButton from './TextButton'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { orange, white } from '../utils/colors'
 import { addCard } from '../actions'
 import { createCard, getDeck } from '../utils/api'
+import { Container, Title, TextInput } from '../utils/styles'
 import { receiveDecks } from '../actions'
 import { NavigationActions } from 'react-navigation'
 
-
-const NewCardView = styled.View`
-  flex: 1;
-  background: white;
-  align-items: center;
-  padding: 10px;
-`
-const Title= styled.Text`
-  font-size: 16px;
-  margin-bottom: 10px;
-`
 const NewCardTitle = styled.Text`
   color: orange;
 `
-const QuizTextInput = styled.TextInput`
-  margin: 10px;
-  line-height: 20px;
-  border: 0;
-  width: 90%;
-  padding: 5px;
-`
+
 
 class NewCard extends Component {
 
@@ -94,25 +78,25 @@ componentDidMount() {
     const { title } = this.state.deck
 
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: white}}>
       <KeyboardAvoidingView behavior="padding" enabled style={{flex:1}}>
-      <NewCardView>
+      <Container style={{alignItems:'center', flex:1}}>
         <Title>Add a New Card to <NewCardTitle>{title}</NewCardTitle></Title>
-        <QuizTextInput
+        <TextInput
           autoFocus
           placeholder="Question"
           onChangeText={(question) => this.setState({question})}
           value={this.state.question}
 
         />
-      <QuizTextInput
+      <TextInput
           placeholder="Answer"
           onChangeText={(answer) => this.setState({answer})}
           value={this.state.answer}
         />
       <TextButton color={white} style={{marginTop: 20, backgroundColor: orange}} onPress={() => this.submit()}>
           Submit</TextButton>
-    </NewCardView>
+    </Container>
     </KeyboardAvoidingView>
     </ScrollView>
     )
