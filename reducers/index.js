@@ -3,7 +3,6 @@ import { RECEIVE_DECKS, RECEIVE_DECK, ADD_CARD, ADD_DECK } from '../actions'
 export default function  decks (state = {}, action) {
   switch (action.type) {
     case RECEIVE_DECKS:
-    debugger
       return {
         ...state,
         ...action.decks,
