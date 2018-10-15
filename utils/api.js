@@ -22,20 +22,24 @@ export function createDeck ({ deck, key }) {
  AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     [key]: deck
   }))
+  .then(formatResults)
 }
 
-export function createCard ({ card, key }) {
-  AsyncStorage.getItem(DECKS_STORAGE_KEY)
-  .then((results) => {
-    debugger
-    let mergedQuestions = JSON.parse(results)[key].questions.concat([card])
-    let deck = {title:key, questions: mergedQuestions}
-    decks[key] = undefined
-    delete decks[key]
-    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
-    createDeck({deck, key})
-})
-.catch((error) => console.log(error))
+const createCard = async ({ card, key }) => {
+try{
+  const decks = await getDecks()
+  let mergedQuestions = decks[key].questions.concat([card])
+  let deck = {title:key, questions: mergedQuestions}
+  decks[key] = undefined
+  delete decks[key]
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+  createDeck({deck, key})
+  const finalDecks = await getDecks()
+  return finalDecks
+}
+catch(error){
+  console.log(error)
+}
 }
 
-export {getDeck}
+export {getDeck, createCard}

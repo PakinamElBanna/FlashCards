@@ -2,30 +2,35 @@ import React, { Component } from 'react'
 import { View, Text, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import Deck from './Deck'
-import styled from 'styled-components'
-import {receiveDecks} from '../actions'
+import { receiveDecks } from '../actions'
 import { getDecks }from '../utils/api'
 import { black } from '../utils/colors'
+import { Container } from '../utils/styles'
 
-const DeckListView = styled.View`
-  background: #3291a0;
-  flex:1;
-  padding: 10px;
-`
 class DeckList extends Component {
 
   state = {
-  ready: false
+  decks: {},
+  ready:false
+  }
+
+static getDerivedStateFromProps(props, state) {
+  if (props.decks !== state.decks) {
+    return {
+      decks: props.decks
+    }
+  }
+  return null;
 }
 
-  componentDidMount() {
-    const { dispatch } = this.props
-    getDecks()
-      .then((decks) => dispatch(receiveDecks(decks)))
-      .then(this.setState({
-        ready: true
-      }))
-  }
+componentDidMount() {
+  const { dispatch } = this.props
+  getDecks()
+    .then((decks) => dispatch(receiveDecks(decks)))
+    .then(this.setState({
+      ready: true
+    }))
+}
 
  viewDeck = (deck) => {
    this.props.navigation.navigate(
@@ -35,25 +40,24 @@ class DeckList extends Component {
  }
 
 renderDeckList = (decks) => {
-   const deckList=Object.values(decks)
-   return <FlatList data={deckList}
-     renderItem={({item}) =>
-     <Deck deck={item} onPress={() => this.viewDeck(item)}/>}
-      keyExtractor={item => item.title}
-      />
+   const deckList = Object.values(decks)
+   return <FlatList data = {deckList}
+                    renderItem={({item}) =>
+                    <Deck deck={item} onPress={() => this.viewDeck(item)}/>}
+                      keyExtractor={item => item.title}
+                    />
  }
 
   render () {
-    const { ready } = this.state
-    const { decks } = this.props
+    const { ready, decks } = this.state
     return (
-      <DeckListView>
-        {this.state.ready === true ?
+      <Container style={{backgroundColor: '#3291a0'}}>
+        {ready?
           this.renderDeckList(decks)
       :
           <Text>Loading</Text>
       }
-      </DeckListView>
+    </Container>
     )
   }
 }

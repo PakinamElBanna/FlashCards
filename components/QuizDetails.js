@@ -52,14 +52,14 @@ static getDerivedStateFromProps(props, state) {
     deck: {}
   }
 
-  componentDidMount() {
-    const id = this.props.deck.title
-    getDeck(id).then((deck)=>{
-      this.setState(()=>{
-        deck
-      })
-    })
-  }
+  // componentDidMount() {
+  //   const id = this.props.deck.title
+  //   getDeck(id).then((deck)=>{
+  //     this.setState(()=>{
+  //       deck
+  //     })
+  //   })
+  // }
 
   render () {
     const viewAnswer = () => {

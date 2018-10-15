@@ -1,22 +1,11 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { View, TouchableOpacity, Text } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import TextButton from './TextButton'
-import styled from 'styled-components'
 import { black, white, orange } from '../utils/colors'
+import { Container } from '../utils/styles'
 import Deck from './Deck'
-
-const DeckDetailsView = styled.View`
-margin: 0px auto;
-display: flex;
-align-items: center;
-width: 100%;
-margin: 0 auto;
-background: white;
-padding: 10px;
-flex:1;`
-
-
+import { getDeck } from '../utils/api'
 
 class DeckDetails extends Component{
   state = {
@@ -24,33 +13,40 @@ class DeckDetails extends Component{
   }
 
   static navigationOptions = ({ navigation }) => {
-  const { deck } = navigation.state.params
+  const { title } = navigation.state.params.deck
   return {
-    title: deck.title
+    title: title
   }
 }
 
-// static getDerivedStateFromProps(props, state) {
-//   if (props.deck !== state.deck) {
-//     return {
-//       deck: props.deck
-//     }
-//   }
-//   return null;
-//
-// }
+static getDerivedStateFromProps(props, state) {
+  if (props.deck !== state.deck) {
+    return {
+      deck: props.deck
+    }
+  }
+  return null;
+}
+
+componentDidMount() {
+  const id = this.props.deck.title
+  getDeck(id).then((deck)=>{
+    this.setState(()=>{
+      deck
+    })
+  })
+}
 
   render() {
     const { deckId } = this.props
+    const { deck } = this.state
     const viewQuiz = () => {
-      const deck = this.props.deck
       this.props.navigation.navigate(
         'QuizDetails',
         {deck}
       )
     }
     const addCard = () => {
-      const deck = this.props.deck
       this.props.navigation.navigate(
         'NewCard',
           {deck}
@@ -61,24 +57,21 @@ class DeckDetails extends Component{
     }
 
     return (
-      <DeckDetailsView>
-      <Deck deck={this.props.deck}/>
+      <Container style={{alignItems: 'center'}}>
+      <Deck deck={deck}/>
       <TextButton color={white} style={{backgroundColor: black}} onPress={addCard}>
         Add Card</TextButton>
-      <TextButton disabled={emptyDeck(this.props.deck.questions.length)} color={white} style={!emptyDeck(this.props.size)? {backgroundColor: orange} : {backgroundColor: orange,opacity: 0.5}} onPress={viewQuiz}>
+      <TextButton disabled={emptyDeck(deck.questions.length)} color={white} style={!emptyDeck(deck.questions.length)? {backgroundColor: orange} : {backgroundColor: orange,opacity: 0.5}} onPress={viewQuiz}>
         Start Quiz</TextButton>
-      </DeckDetailsView>
+      </Container>
     )
   }
 }
 
 function mapStateToProps (state, {navigation}) {
-  const deckId  = navigation.state.params.deck.title
-  const deck = state[deckId]
-  const size = Object.keys(deck.questions).length
+  const title = navigation.state.params.deck.title
   return {
-    deck,
-    size
+    deck: state[title]
   }
 }
 

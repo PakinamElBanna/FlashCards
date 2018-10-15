@@ -6,8 +6,8 @@ import styled from 'styled-components'
 import { orange, white } from '../utils/colors'
 import { addCard } from '../actions'
 import { createCard } from '../utils/api'
+import { receiveDecks } from '../actions'
 import { NavigationActions } from 'react-navigation'
-import {receiveDecks} from '../actions'
 
 
 class NewCard extends Component {
@@ -40,9 +40,7 @@ class NewCard extends Component {
     const card = this.state
     const {deck} = this.props
 
-    this.props.dispatch(addCard(key,card))
-
-    createCard({key, card})
+    createCard({key, card}).then((decks)=> this.props.dispatch(receiveDecks(decks)))
 
     this.setState({
       question: '',

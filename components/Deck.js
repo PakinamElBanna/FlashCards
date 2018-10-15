@@ -9,7 +9,7 @@ const DeckView = styled.View`
   margin: 0px auto;
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 100%;
   margin: 5px auto;
   border-radius: 5px;
   background: white;
