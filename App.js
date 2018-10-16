@@ -13,6 +13,7 @@ import NewCard from './components/NewCard'
 import QuizDetails from './components/QuizDetails'
 import { black, white } from './utils/colors'
 import { SafeAreaView } from 'react-navigation';
+import { setLocalNotification } from './utils/_helpers'
 
 SafeAreaView.setStatusBarHeight(0);
 const Tabs = createBottomTabNavigator ({
@@ -102,6 +103,9 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+componentDidMount() {
+  setLocalNotification()
+}
   render() {
     return (
     <Provider store={createStore(reducer)}>

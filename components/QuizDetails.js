@@ -7,6 +7,7 @@ import {getDeck} from '../utils/api'
 import { white, orange,black } from '../utils/colors'
 import { Title, Container } from '../utils/styles'
 import { NavigationActions } from 'react-navigation'
+import { clearLocalNotification, setLocalNotification } from '../utils/_helpers'
 
 const QuizView = styled.View`
   background: #fff;
@@ -49,14 +50,12 @@ static getDerivedStateFromProps(props, state) {
     deck: {}
   }
 
-  // componentDidMount() {
-  //   const id = this.props.deck.title
-  //   getDeck(id).then((deck)=>{
-  //     this.setState(()=>{
-  //       deck
-  //     })
-  //   })
-  // }
+  componentDidUpdate() {
+    if(this.state.questionsAnswered === this.state.deck.questions.length) {
+      clearLocalNotification()
+      .then(setLocalNotification)
+    }
+  }
 
   render () {
     const viewAnswer = () => {
@@ -115,7 +114,7 @@ static getDerivedStateFromProps(props, state) {
 
   const goBack =  () => this.props.navigation.dispatch(NavigationActions.back())
 
-    const displayQuiz =()=>{
+    const displayQuiz = () => {
       if(questionsAnswered !== Object.keys(this.state.deck.questions).length){
         return <QuizView>
         <Title>{deck.questions[questionIndex].question}</Title>
