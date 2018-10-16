@@ -79,7 +79,7 @@ componentDidMount() {
 
     return (
       <ScrollView style={{backgroundColor: white}}>
-      <KeyboardAvoidingView behavior="padding" enabled style={{flex:1}}>
+      <KeyboardAvoidingView behavior="padding" style={{ justifyContent: 'center', alignItems: 'center', flex: 1}}>
       <Container style={{alignItems:'center', flex:1}}>
         <Title>Add a New Card to <NewCardTitle>{title}</NewCardTitle></Title>
         <TextInput

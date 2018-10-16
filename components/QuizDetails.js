@@ -122,7 +122,7 @@ static getDerivedStateFromProps(props, state) {
            Answer</TextButton>
         {this.state.showAnswer === true &&
           <View style={{marginTop: 20, alignItems: 'center'}}>
-          <Title style={{color: black}}>{deck.questions[questionIndex].answer}</Title>
+          <Title style={{color: black, textAlign: 'center'}}>{deck.questions[questionIndex].answer}</Title>
         <View style={{marginTop: 10}}>
         <TextButton color={white}  style={{backgroundColor: '#3291a0'}}  onPress={markAsCorrect}>Correct</TextButton>
         <TextButton color={white}  style={{backgroundColor: orange}}  onPress={markAsIncorrect}>Incorrect</TextButton>
@@ -146,7 +146,7 @@ static getDerivedStateFromProps(props, state) {
 
     return (
         <View style={{flex:1, backgroundColor: white, padding: 20}}>
-          <Text style={{paddingBottom: 10, color: orange, fontSize: 12}}>{questionIndex}/{this.state.deck.questions.length} answered</Text>
+          <Text style={{paddingBottom: 10, color: orange, fontSize: 14}}>{questionIndex}/{this.state.deck.questions.length} answered</Text>
           <QuizView>{displayQuiz()}</QuizView>
         </View>
 

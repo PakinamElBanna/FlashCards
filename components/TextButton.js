@@ -3,13 +3,13 @@ import { Text, TouchableOpacity } from 'react-native'
 import styled from 'styled-components'
 
 const Button = styled.TouchableOpacity`
-  padding: 4px 8px;
-  margin: 3px;
+  padding: 8px;
+  margin: 6px;
   border-radius: 5px;
-  width: 70px;
+  width: 100px;
 `
 const ButtonText = styled.Text`
-  font-size: 12px;
+  font-size: 18px;
   text-align:center;
 `
 export default function TextButton ({ children, onPress, style = {}, color, disabled }) {

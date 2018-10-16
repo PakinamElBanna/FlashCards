@@ -14,6 +14,7 @@ import QuizDetails from './components/QuizDetails'
 import { black, white } from './utils/colors'
 import { SafeAreaView } from 'react-navigation';
 import { setLocalNotification } from './utils/_helpers'
+import { Constants } from 'expo';
 
 SafeAreaView.setStatusBarHeight(0);
 const Tabs = createBottomTabNavigator ({
@@ -110,6 +111,7 @@ componentDidMount() {
     return (
     <Provider store={createStore(reducer)}>
       <View style={{flex: 1}}>
+        <View style={{backgroundColor:black,height: Constants.statusBarHeight}}/>
         <MainNavigator />
       </View>
     </Provider>
