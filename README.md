@@ -9,7 +9,9 @@ Project Overview:
 Running the app:
   - navigate into 'flashcards' and run "npm install"
   - after the app has finished installing, run "npm start"
-  - Your app should be up and running now, choose a deck from the already present list of decks and take a quiz, or feel free to create your own decks and quzzes. Have fun with it :)
+  - Your app should be up and running now, choose a deck from the already present list of decks and take a quiz, or feel free to create your own decks and quizzes. Have fun with it :)
 
 
 This project was bootstrapped with [Create React  Native App](https://github.com/react-community/create-react-native-app).
+
+The project has been tested for Android.
